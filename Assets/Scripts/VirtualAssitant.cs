@@ -39,12 +39,14 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
         {
             if (readyAtPatrolPoint)
             {
-                if(currentDialogueIndex < currentDialogueData.dialogue.Length)
+                if (currentDialogueIndex < currentDialogueData.dialogue.Length)
                 {
-                    if(currentDialogueIndex == 0)
+                    if (currentDialogueIndex == 0)
                     {
                         DialogueManager.instance.EnableDialoguePanel();
+                        //do a little jump
                     }
+                    transform.DOJump(transform.position, 0.5f, 1, 0.5f);
                     AdvanceDialogue();
                 }
                 else
@@ -67,7 +69,8 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
     }
 
 
-    private void Update() {
+    private void Update()
+    {
 
         //if not moving to patrol point, face player 
         if (!isMovingToPatrolPoint)
@@ -78,16 +81,17 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
             //lerp rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
         }
-        
+
     }
 
-    public void AdvanceDialogue(){
-        
-       string dialogueText = currentDialogueData.dialogue[currentDialogueIndex];
-       Debug.Log(dialogueText);
-         DialogueManager.instance.DisplayDialogue(dialogueText);
+    public void AdvanceDialogue()
+    {
 
-         currentDialogueIndex++;
+        string dialogueText = currentDialogueData.dialogue[currentDialogueIndex];
+        Debug.Log(dialogueText);
+        DialogueManager.instance.DisplayDialogue(dialogueText);
+
+        currentDialogueIndex++;
     }
 
     public void StartNewAssistAction(int index)
@@ -116,7 +120,7 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
 
         currentDialogueData = data.dialogueData;
         currentDialogueIndex = 0;
-        
+
 
     }
 
@@ -140,6 +144,8 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
 
             float distance = Vector3.Distance(transform.position, target.position);
             float duration = distance / speed;
+
+            
 
             transform.DOMove(target.position, duration).SetEase(Ease.Linear);
 
