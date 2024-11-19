@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "253057079060",
+    "firebase_url": "https://unityvr-e7e41-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "unityvr-e7e41",
+    "storage_bucket": "unityvr-e7e41.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253057079060:android:b76d1d64265c6f01915401",
+        "android_client_info": {
+          "package_name": "com.gamedev.unityvr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgNDT-_QpmhUhaYgRYhOng1gIo91e5akM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
