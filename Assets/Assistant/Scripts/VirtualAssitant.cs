@@ -43,6 +43,7 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
                         DialogueManager.instance.EnableDialoguePanel();
                         //do a little jump
                     }
+                    transform.DOSmoothRewind();
                     transform.DOJump(transform.position, 0.5f, 1, 0.5f);
                     AdvanceDialogue();
 
