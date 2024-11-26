@@ -22,6 +22,12 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
 
 
 
+    public Transform xrRigPosition;
+
+    public Transform destinationBody;
+
+
+
     public void OnInteraction()
     {
       
@@ -42,6 +48,11 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
 
 
                 }
+                else{
+                    DialogueManager.instance.DisableDialoguePanel();
+                    currentDialogueIndex = 0;
+
+                }
 
     }
 
@@ -49,12 +60,31 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
     private void Update()
     {
 
+
+            //set target position to the camera position
+
+            xrRigPosition.position = Camera.main.transform.position;
+
+            //set rig y rotation to camera y rotation
+
+            xrRigPosition.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
       
             Vector3 targetDir = Camera.main.transform.position - transform.position;
             targetDir.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(targetDir);
+
+            //clamp destination y position to 0 and 2.5
+            Vector3 destination = destinationBody.position;
             //lerp rotation
+            
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+            
+
+            //lerp to destination
+            transform.position = Vector3.Lerp(transform.position, destinationBody.position, Time.deltaTime * speed);
+
+            //clamp y position
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 0, 2.5f), transform.position.z);
         
 
     }
@@ -70,6 +100,17 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
         }
     }
 
+
+    private void OnTriggerEnter(Collider other) {
+            
+    
+            //if we enter a place of interest, we set out current dialogue data to the dialogue data of the place of interest
+            if(other.gameObject.TryGetComponent(out PlaceOfInterest placeOfInterest)){
+                
+                currentDialogueData = placeOfInterest.dialogueData;
+            }
+    }
+
     public void AdvanceDialogue()
     {
 
@@ -78,6 +119,8 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
         DialogueManager.instance.DisplayDialogue(dialogueText);
 
         currentDialogueIndex++;
+
+
     }
 
     
