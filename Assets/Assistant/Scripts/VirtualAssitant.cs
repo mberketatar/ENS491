@@ -67,8 +67,12 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
             xrRigPosition.position = Camera.main.transform.position;
 
             //set rig y rotation to camera y rotation
-
-            xrRigPosition.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+                 //only lerp if the difference y axis angle is greater than 15 degrees
+            if(Mathf.Abs(Camera.main.transform.rotation.eulerAngles.y - xrRigPosition.rotation.eulerAngles.y) > 15){
+                xrRigPosition.rotation = Quaternion.Lerp(xrRigPosition.rotation, Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0), Time.deltaTime * 5.0f);
+            }
+            
+            
       
             Vector3 targetDir = Camera.main.transform.position - transform.position;
             targetDir.y = 0;
@@ -78,7 +82,12 @@ public class VirtualAssitant : MonoBehaviour, IInteractable
             Vector3 destination = destinationBody.position;
             //lerp rotation
             
+
+       
+            
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+
+
             
 
             //lerp to destination
