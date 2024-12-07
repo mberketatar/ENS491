@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ENS491.sln"
+    "dotnet.defaultSolution": "PROJECT_VR_FIREBASE.sln"
 }
