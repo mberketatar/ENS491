@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b29abc9ba27ef41bfca594ded4daa7, type: 3}
+  m_Name: VirtualAssitantPatrolData
+  m_EditorClassIdentifier: 
+  patrolData:
+  - patrolPointName: a
+    dialogueData: {fileID: 11400000, guid: aac0385749897594a877d46e479f3517, type: 2}
+  - patrolPointName: b
+    dialogueData: {fileID: 11400000, guid: 2f918df48ee560b4b8e9ffeb091229fc, type: 2}
+  - patrolPointName: c
+    dialogueData: {fileID: 11400000, guid: 8ac94c3ee542ccc4493851158bc50b52, type: 2}
+  - patrolPointName: d
+    dialogueData: {fileID: 11400000, guid: 188d17e8ff478704e8267c96f7b29326, type: 2}
