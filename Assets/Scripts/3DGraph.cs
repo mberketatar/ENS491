@@ -197,7 +197,7 @@ public class Spending3DGraphGenerator : MonoBehaviour
                 if (gridRb != null)
                 {
                     // Make it stable (no tipping)
-                    gridRb.isKinematic = true;
+                    //gridRb.isKinematic = true;
                 }
                 gridBar.transform.localPosition = new Vector3(xPosition, gridHeight / 2f, 0f);
                 gridBar.transform.localScale = new Vector3(barWidth, gridHeight, barDepth);
@@ -210,7 +210,7 @@ public class Spending3DGraphGenerator : MonoBehaviour
                 Rigidbody solarRb = solarBar.GetComponent<Rigidbody>();
                 if (solarRb != null)
                 {
-                    solarRb.isKinematic = true;
+                    //solarRb.isKinematic = true;
                 }
                 solarBar.transform.localPosition = new Vector3(xPosition, solarBarYPos, 0f);
                 solarBar.transform.localScale = new Vector3(barWidth, solarHeight, barDepth);
@@ -234,7 +234,7 @@ public class Spending3DGraphGenerator : MonoBehaviour
                 Rigidbody rb = bar.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.isKinematic = true;
+                    //rb.isKinematic = true;
                 }
                 bar.transform.localPosition = new Vector3(xPosition, barHeight / 2f, 0f);
                 bar.transform.localScale = new Vector3(barWidth, barHeight, barDepth);
