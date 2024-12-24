@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: presentation
   m_EditorClassIdentifier: 
   dialogue:
-  - This is our presentation area
-  - you can present stuff here
+  - Here is our presentation area!
+  - Both seasoned experts from various industries and talented students come together
+    here to share their innovative ideas and unique insights.
+  audioClips:
+  - {fileID: 8300000, guid: c247439764e58d145af7d355e5967d89, type: 3}
+  - {fileID: 8300000, guid: 9ffb0c607e56ceb40ac5379e8f132a1a, type: 3}

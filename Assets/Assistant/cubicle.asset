@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: cubicle
   m_EditorClassIdentifier: 
   dialogue:
-  - This is our cubicles
-  - you can study here
+  - Here, you can see the cubicles designed for groups to study.
+  - These spaces are constructed so that people can work on their projects without
+    affecting other groups.
+  audioClips:
+  - {fileID: 8300000, guid: 4998b1bca80f59a4eb7a0e77a4b2e159, type: 3}
+  - {fileID: 8300000, guid: b930242f1bd520a47a0525d880cf7be2, type: 3}

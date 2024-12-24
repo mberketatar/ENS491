@@ -7,4 +7,5 @@ public class DialogueData : ScriptableObject
 {
     
     public string[] dialogue;
+    public AudioClip[] audioClips;    // Array of corresponding audio clips
 }

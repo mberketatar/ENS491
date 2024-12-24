@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: mutfak
   m_EditorClassIdentifier: 
   dialogue:
-  - This is our kitchen
-  - Where you can get yourself some coffee!!
+  - Welcome to our kitchen!
+  - Here you can fulfill your needs for caffeine with tea and coffee!
+  audioClips:
+  - {fileID: 8300000, guid: 53eb1eeacf2c36d46bd7ad37c5a1b996, type: 3}
+  - {fileID: 8300000, guid: 47bd7ebc0817b1d4c92320763895111c, type: 3}
