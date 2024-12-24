@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: entrance
   m_EditorClassIdentifier: 
   dialogue:
-  - Welcome to SUCool
-  - It's a great place!
+  - '"Hello there, and welcome to SUCool!'
+  - "I\u2019ll be your guide today."
+  - "SUCool is Sabanc\u0131 University's incubation center that is dedicated to support
+    early stage entrepreneurs."
+  audioClips:
+  - {fileID: 8300000, guid: 8e13442fdbf99ef499598fddd615772b, type: 3}
+  - {fileID: 8300000, guid: 7a2c91a73c0059f47b184768e029fa50, type: 3}
+  - {fileID: 8300000, guid: 9c90a26f81f722648880139927b5a4d3, type: 3}
