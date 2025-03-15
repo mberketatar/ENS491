@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Objects")]
     public TrashSpawner[] trashSpawners;
+    
+    [Header("Audio")]
+    public AudioClip gameStartSound;
+    public AudioClip gameResetSound;
+    public AudioClip timeRunningOutSound;
+    public AudioClip gameOverSound;
+    public float timeRunningOutThreshold = 30f; // Play warning sound when 30 seconds remain
+    private bool hasPlayedTimeWarning = false;
+    private AudioSource audioSource;
 
     private int currentScore = 0;
     private float remainingTime;
@@ -35,6 +44,13 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(false);
         }
 
+        // Set up audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        
         UpdateScoreDisplay();
         UpdateTimerDisplay(gameDuration);
     }
@@ -47,6 +63,7 @@ public class GameManager : MonoBehaviour
         // Reset values
         currentScore = 0;
         remainingTime = gameDuration;
+        hasPlayedTimeWarning = false;
         
         // Update UI
         UpdateScoreDisplay();
@@ -55,6 +72,12 @@ public class GameManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+        
+        // Play start sound
+        if (audioSource != null && gameStartSound != null)
+        {
+            audioSource.PlayOneShot(gameStartSound);
         }
         
         // Start game logic
@@ -89,8 +112,15 @@ public class GameManager : MonoBehaviour
             }
         }
         
+        // Play reset sound
+        if (audioSource != null && gameResetSound != null)
+        {
+            audioSource.PlayOneShot(gameResetSound);
+        }
+        
         // Reset UI
         currentScore = 0;
+        hasPlayedTimeWarning = false;
         UpdateScoreDisplay();
         UpdateTimerDisplay(gameDuration);
         
@@ -144,6 +174,16 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             remainingTime -= 1f;
             UpdateTimerDisplay(remainingTime);
+            
+            // Play warning sound when time is running out
+            if (remainingTime <= timeRunningOutThreshold && !hasPlayedTimeWarning)
+            {
+                if (audioSource != null && timeRunningOutSound != null)
+                {
+                    audioSource.PlayOneShot(timeRunningOutSound);
+                    hasPlayedTimeWarning = true;
+                }
+            }
         }
         
         // Time is up - end the game
@@ -161,6 +201,12 @@ public class GameManager : MonoBehaviour
             {
                 spawner.StopSpawning();
             }
+        }
+        
+        // Play game over sound
+        if (audioSource != null && gameOverSound != null)
+        {
+            audioSource.PlayOneShot(gameOverSound);
         }
         
         // Show game over UI

@@ -16,16 +16,39 @@ public class TrashCan : MonoBehaviour
     public GameObject incorrectEffectPrefab;
     public float effectDuration = 1f;
     
+    [Header("Highlighting")]
+    public bool enableHighlight = true;
+    
     private GameManager gameManager;
     private AudioSource audioSource;
+    private HighlightManager highlightManager;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        highlightManager = FindObjectOfType<HighlightManager>();
+        
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && (correctSound != null || incorrectSound != null))
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        
+        if (enableHighlight)
+        {
+            // Add highlight component if not already present
+            if (GetComponent<TrashHighlight>() == null)
+            {
+                TrashHighlight highlight = gameObject.AddComponent<TrashHighlight>();
+                highlight.useTrashTypeColor = true;
+                highlight.visibleThroughWalls = true;
+                
+                // Register with highlight manager if available
+                if (highlightManager != null)
+                {
+                    highlightManager.RegisterHighlight(highlight);
+                }
+            }
         }
     }
 

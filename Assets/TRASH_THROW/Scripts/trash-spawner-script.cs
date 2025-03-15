@@ -25,10 +25,12 @@ public class TrashSpawner : MonoBehaviour
     private List<GameObject> activeTrash = new List<GameObject>();
     private bool isSpawning = false;
     private GameManager gameManager;
+    private HighlightManager highlightManager;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        highlightManager = FindObjectOfType<HighlightManager>();
     }
 
     public void StartSpawning()
@@ -119,6 +121,20 @@ public class TrashSpawner : MonoBehaviour
             trashItem = trashInstance.AddComponent<TrashItem>();
         }
         trashItem.trashType = selectedPool.trashType;
+        
+        // Add highlight component if not already present
+        if (trashItem.enableHighlight && trashInstance.GetComponent<TrashHighlight>() == null)
+        {
+            TrashHighlight highlight = trashInstance.AddComponent<TrashHighlight>();
+            highlight.useTrashTypeColor = true;
+            highlight.visibleThroughWalls = true;
+            
+            // Register with highlight manager if available
+            if (highlightManager != null)
+            {
+                highlightManager.RegisterHighlight(highlight);
+            }
+        }
 
         // Add to active trash list
         activeTrash.Add(trashInstance);
