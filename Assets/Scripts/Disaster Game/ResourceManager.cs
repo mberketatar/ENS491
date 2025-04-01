@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -10,10 +11,22 @@ public class ResourceManager : MonoBehaviour
     public float regenRate = 5f;
     public float maxResource = 100f;
 
+    // Game Over settings.
+    public AudioClip gameOverSound;      // Assign your game over sound clip in the Inspector.
+    public Text gameOverText;            // Assign your UI Text element for game over message.
+    public AudioSource audioSource;      // Reference to an AudioSource component.
+
+    private bool isGameOver = false;     // Flag to ensure GameOver logic runs only once.
+
     void Update()
     {
-        // Check for game over condition.
-        if (water <= 0f || electricity <= 0f || naturalGas <= 0f)
+        // Clamp resource values so they stay between 0 and maxResource.
+        water = Mathf.Clamp(water, 0f, maxResource);
+        electricity = Mathf.Clamp(electricity, 0f, maxResource);
+        naturalGas = Mathf.Clamp(naturalGas, 0f, maxResource);
+
+        // Check for game over condition (and make sure we haven't already triggered game over).
+        if (!isGameOver && (water <= 0f || electricity <= 0f || naturalGas <= 0f))
         {
             GameOver();
         }
@@ -41,7 +54,23 @@ public class ResourceManager : MonoBehaviour
 
     void GameOver()
     {
+        isGameOver = true;
+
+        // Display game over text if assigned.
+        if (gameOverText != null)
+        {
+            gameOverText.text = "Game Over!";
+            gameOverText.enabled = true;
+        }
+
+        // Play the game over sound if an AudioSource and clip are assigned.
+        if (audioSource != null && gameOverSound != null)
+        {
+            audioSource.PlayOneShot(gameOverSound);
+        }
+
         Debug.Log("Game Over!");
-        // Additional game over logic could be added here.
+
+        // Additional logic could include pausing the game, disabling player controls, etc.
     }
 }
