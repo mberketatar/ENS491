@@ -24,15 +24,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273333315094488758}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 35.15174}
-  m_LocalScale: {x: 0.004999999, y: 0.005, z: 0.004999999}
+  m_LocalScale: {x: 0.0049999985, y: 0.005, z: 0.0049999985}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 295161494587504595}
   - {fileID: 4639469799612838252}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -8.638306, y: 3.8926086}
@@ -50,12 +50,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98737ed2eb0bb8846a7f0a0cc01dd7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Videos: []
-  VideoNames: []
+  Videos:
+  - {fileID: 32900000, guid: 742e9a7e18fd6d24f8a90750c740babf, type: 3}
+  - {fileID: 32900000, guid: c81f1201f8a691c4db7e55416e8e62a8, type: 3}
+  - {fileID: 32900000, guid: c92c5748d2edcd141a4914427ffe7f54, type: 3}
+  VideoNames:
+  - Kolaj
+  - "Giri\u015Fimciler \u0130le"
+  - "2024 Y\u0131l\u0131"
   Title: {fileID: 7506807082124470420}
   VideoPlayer: {fileID: 9065116306134632533}
-  Button: {fileID: 0}
-  Menu: {fileID: 0}
+  Button: {fileID: 2169765910844263330, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
+  Menu: {fileID: 5743283258530758088}
 --- !u!1001 &3488634042891041476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,6 +88,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2339247484041613763, guid: 085ce58b196caa446a8545c9dd388793, type: 3}
       propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060619106468608791, guid: 085ce58b196caa446a8545c9dd388793, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3327862232503396044, guid: 085ce58b196caa446a8545c9dd388793, type: 3}
@@ -274,6 +284,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8072890477496077224, guid: 085ce58b196caa446a8545c9dd388793, type: 3}
   m_PrefabInstance: {fileID: 3488634042891041476}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5743283258530758088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9213841042329470732, guid: 085ce58b196caa446a8545c9dd388793, type: 3}
+  m_PrefabInstance: {fileID: 3488634042891041476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4348165065464325155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,6 +300,10 @@ PrefabInstance:
     - target: {fileID: 2169765910844263330, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_Name
       value: MenuButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169765910844263330, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_Pivot.x
@@ -300,7 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_AnchorMin.x
@@ -308,11 +327,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 247.62439
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_SizeDelta.y
@@ -348,11 +367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 147.8122
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 4376389403118721836, guid: 05656a9a33d296146a3e72a851dd2838, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -387,6 +406,10 @@ PrefabInstance:
     - target: {fileID: 1503989109714432937, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Name
       value: Screen Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077641819426116279, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
+      propertyPath: m_text
+      value: Kolaj
       objectReference: {fileID: 0}
     - target: {fileID: 3183612571483490189, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -555,6 +578,10 @@ PrefabInstance:
     - target: {fileID: 4941219564456579801, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5299454468733366696, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
+      propertyPath: m_Name
+      value: Video
       objectReference: {fileID: 0}
     - target: {fileID: 5843222495059034212, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Layer
