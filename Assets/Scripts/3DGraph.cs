@@ -202,6 +202,7 @@ public class Spending3DGraphGenerator : MonoBehaviour
                 gridBar.transform.localPosition = new Vector3(xPosition, gridHeight / 2f, 0f);
                 gridBar.transform.localScale = new Vector3(barWidth, gridHeight, barDepth);
                 AssignBarColor(gridBar, gridBarColor);
+                Debug.LogWarning("Hurr");
                 spawnedBars.Add(gridBar);
 
                 // Create solar bar on top of the grid bar
@@ -221,7 +222,7 @@ public class Spending3DGraphGenerator : MonoBehaviour
                 labelText += $"\nGrid: {grid_kWh} kWh\nSolar: {solar_kWh} kWh";
 
                 // Label above top bar
-                float labelYPos = solarBarYPos + (solarHeight / 2f) + labelVerticalOffset;
+                float labelYPos = ((gridHeight + solarHeight) / 2f) + labelVerticalOffset;
                 AddLabel(new Vector3(xPosition, labelYPos, 0f), labelText);
             }
             else
@@ -266,6 +267,12 @@ public class Spending3DGraphGenerator : MonoBehaviour
         {
             // Assign a simple material color
             rend.material.color = color;
+            Debug.LogWarning(bar.name + " color set to " + color);
+
+        }
+        else
+        {
+            Debug.LogWarning("Renderer not found on bar prefab.");
         }
     }
 

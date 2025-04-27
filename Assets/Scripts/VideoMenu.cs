@@ -27,7 +27,7 @@ public class VideoMenu : MonoBehaviour
         activePos = ContentAnchor.transform.position;
         for (int i = 0; i < Videos.Length; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             inst = Instantiate(Button, Menu.transform);
             inst2 = Instantiate(Content, ScreenPlayer.transform);
             contentInstances.Add(inst2);
