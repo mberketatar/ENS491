@@ -35,7 +35,7 @@ public class GrabbableButton : MonoBehaviour
     private AudioSource audioSource;
     private Material buttonMaterial;
     private Color currentColor;
-    private GameManager gameManager;
+    [SerializeField] private GameManager gameManager;
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
     
     void Start()
