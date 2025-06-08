@@ -6,6 +6,7 @@ public class ResourceManager : MonoBehaviour
     public float water = 100f;
     public float electricity = 100f;
     public float naturalGas = 100f;
+     public bool IsGameOver { get { return isGameOver; } }
 
     // Regeneration rate per second when no items are broken.
     public float regenRate = 5f;
@@ -50,6 +51,15 @@ public class ResourceManager : MonoBehaviour
             electricity = Mathf.Min(electricity + regenRate * Time.deltaTime, maxResource);
             naturalGas = Mathf.Min(naturalGas + regenRate * Time.deltaTime, maxResource);
         }
+    }
+    public void ResetResources()
+    {
+        isGameOver      = false;
+        water           = maxResource;
+        electricity     = maxResource;
+        naturalGas      = maxResource;
+        if (gameOverText != null)
+            gameOverText.enabled = false;
     }
 
     void GameOver()

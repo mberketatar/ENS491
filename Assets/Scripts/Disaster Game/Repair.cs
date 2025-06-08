@@ -10,85 +10,91 @@ public enum ResourceType
     NaturalGas
 }
 
-[RequireComponent(typeof(XRBaseInteractable))]
+[RequireComponent(typeof(XRSimpleInteractable))]
 public class Repair : MonoBehaviour
 {
-    private XRBaseInteractable interactable;
-    private Renderer cubeRenderer;
+    [Header("Broken‐Cube Visuals")]
+    [SerializeField] private ParticleSystem brokenParticles;
 
-    // Particle effect for the broken state (assign in the Inspector)
-    public ParticleSystem brokenParticles;
+    [Header("Resource Consumption")]
+    [SerializeField] private ResourceType resourceType;
+    [SerializeField] private float        consumptionRate = 1f;
 
-    // Choose which resource this object consumes when broken.
-    public ResourceType resourceType;
-    // How fast the resource is consumed (units per second)
-    public float consumptionRate = 1f;
+    [Header("Random Break Timing")]
+    [SerializeField] private float minTimeToBreak = 5f;
+    [SerializeField] private float maxTimeToBreak = 15f;
 
-    // Track whether the cube is broken. Starts as not broken (false).
-    private bool isBroken = false;
+    // Internals
+    private XRSimpleInteractable simpleInteractable;
+    private Renderer             cubeRenderer;
+    private ResourceManager      resourceManager;
 
-    // Time range (in seconds) before the cube automatically breaks.
-    public float minTimeToBreak = 5f;
-    public float maxTimeToBreak = 15f;
-
+    private bool    isBroken;
     private Coroutine breakTimerCoroutine;
     private Coroutine consumptionCoroutine;
 
-    // Reference to the ResourceManager in your scene.
-    private ResourceManager resourceManager;
-
     private void Awake()
     {
-        interactable = GetComponent<XRBaseInteractable>();
-        cubeRenderer = GetComponent<Renderer>();
-        resourceManager = FindObjectOfType<ResourceManager>();
+        simpleInteractable = GetComponent<XRSimpleInteractable>();
+        cubeRenderer       = GetComponent<Renderer>();
+        resourceManager    = FindObjectOfType<ResourceManager>();
 
-        // Start with the cube repaired (green) and start the break timer.
-        SetRepaired();
+        // **DON’T** call SetRepaired() here anymore.
+        // That will only be invoked when the game actually starts.
     }
 
     private void OnEnable()
     {
-        interactable.selectEntered.AddListener(OnSelectEntered);
+        simpleInteractable.activated.AddListener(OnActivate);
     }
 
     private void OnDisable()
     {
-        interactable.selectEntered.RemoveListener(OnSelectEntered);
+        simpleInteractable.activated.RemoveListener(OnActivate);
     }
 
-    private void OnSelectEntered(SelectEnterEventArgs args)
+    private void OnActivate(ActivateEventArgs args)
     {
-        // Only allow a click to repair the cube if it is broken.
         if (isBroken)
-        {
             RepairCube();
-        }
+    }
+
+    /// <summary>
+    /// Called by GameManager.StartGame():  
+    /// resets to green *and* kicks off the break timer.
+    /// </summary>
+    public void BeginBreakCycle()
+    {
+        StopAllCoroutines();
+        SetRepaired();    // this also starts the BreakTimer()
+    }
+
+    /// <summary>
+    /// Called by GameManager.ResetGame():  
+    /// immediately force‐reset to green.
+    /// </summary>
+    public void ResetRepair()
+    {
+        StopAllCoroutines();
+        SetRepaired();
     }
 
     private IEnumerator BreakTimer()
     {
-        // Wait for a random time between minTimeToBreak and maxTimeToBreak seconds.
         float waitTime = Random.Range(minTimeToBreak, maxTimeToBreak);
         yield return new WaitForSeconds(waitTime);
 
-        // Only break the cube if it is still repaired (green).
         if (!isBroken)
-        {
             SetBroken();
-        }
     }
 
     private void SetBroken()
     {
         isBroken = true;
+        Debug.Log($"{name} BROKE!");
         cubeRenderer.material.color = Color.red;
-        if (brokenParticles != null)
-        {
-            brokenParticles.Play();
-        }
+        brokenParticles?.Play();
 
-        // Start consuming the assigned resource.
         consumptionCoroutine = StartCoroutine(ConsumeResource());
     }
 
@@ -96,42 +102,28 @@ public class Repair : MonoBehaviour
     {
         isBroken = false;
         cubeRenderer.material.color = Color.green;
-        if (brokenParticles != null)
-        {
-            brokenParticles.Stop();
-        }
+        brokenParticles?.Stop();
 
-        // Stop resource consumption if it was running.
+        // stop any draining
         if (consumptionCoroutine != null)
-        {
             StopCoroutine(consumptionCoroutine);
-        }
-        
-        // Restart the break timer.
+
+        // restart the break timer
         if (breakTimerCoroutine != null)
-        {
             StopCoroutine(breakTimerCoroutine);
-        }
         breakTimerCoroutine = StartCoroutine(BreakTimer());
     }
 
-    // Consumes the selected resource over time while the cube is broken.
     private IEnumerator ConsumeResource()
     {
         while (isBroken)
         {
-            float consumptionThisFrame = consumptionRate * Time.deltaTime;
+            float delta = consumptionRate * Time.deltaTime;
             switch (resourceType)
             {
-                case ResourceType.Water:
-                    resourceManager.water -= consumptionThisFrame;
-                    break;
-                case ResourceType.Electricity:
-                    resourceManager.electricity -= consumptionThisFrame;
-                    break;
-                case ResourceType.NaturalGas:
-                    resourceManager.naturalGas -= consumptionThisFrame;
-                    break;
+                case ResourceType.Water:       resourceManager.water       -= delta; break;
+                case ResourceType.Electricity: resourceManager.electricity -= delta; break;
+                case ResourceType.NaturalGas:  resourceManager.naturalGas  -= delta; break;
             }
             yield return null;
         }
@@ -142,9 +134,6 @@ public class Repair : MonoBehaviour
         SetRepaired();
     }
 
-    // Expose the broken state to other scripts
-    public bool IsBroken
-    {
-        get { return isBroken; }
-    }
+    /// <summary>Optional: if you need to peek at broken state elsewhere.</summary>
+    public bool IsBroken => isBroken;
 }
